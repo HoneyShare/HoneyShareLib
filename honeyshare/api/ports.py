@@ -2,7 +2,7 @@ from honeyshare.api.api_common import APICommon
 
 
 class Ports(APICommon):
-    def ports(self, port: str = None):
+    def __call__(self, port: str = None):
         if port is None:
             return self.get_request("/ports")
         return self.get_request(f"/ports/{port}")

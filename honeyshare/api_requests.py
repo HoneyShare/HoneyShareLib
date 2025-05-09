@@ -9,6 +9,5 @@ def make_url(path):
 
 def make_request(path, key):
     url = make_url(path)
-    print(url)
     resp = requests.get(url, headers={config.HEADER: key}, verify=False)
     return resp
