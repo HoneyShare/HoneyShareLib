@@ -1,6 +1,6 @@
 import requests
 
-import config
+from honeyshare import config
 
 
 def make_url(path):

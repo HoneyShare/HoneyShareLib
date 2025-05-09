@@ -1,4 +1,4 @@
-from api.api_common import APICommon
+from honeyshare.api.api_common import APICommon
 
 
 class Ports(APICommon):

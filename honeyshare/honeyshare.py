@@ -1,11 +1,9 @@
 from abc import ABC
 
-import config
-
-import api
+from honeyshare import config, api
 
 
-class Client:
+class HoneyShare:
     def __init__(self, key=None):
         self.key = key or config.KEY
         self.Blacklist = api.Blacklist(self.key)

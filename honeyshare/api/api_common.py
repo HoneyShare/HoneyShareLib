@@ -1,5 +1,5 @@
-import config
-from api_requests import make_request
+import honeyshare.config
+from honeyshare.api_requests import make_request
 
 
 class APICommon:
