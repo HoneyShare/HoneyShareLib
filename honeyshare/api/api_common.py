@@ -6,8 +6,8 @@ class APICommon:
     def __init__(self, key=None):
         self.key = key or config.KEY
 
-    def get_request(self, path):
-        req = make_request(path, self.key)
+    def get_request(self, path, page_num=None, page_size=None):
+        req = make_request(path, self.key, page_num, page_size)
 
         if req.status_code == 403:
             raise ExNotAuthenticated
