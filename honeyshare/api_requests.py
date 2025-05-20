@@ -16,7 +16,5 @@ def make_request(path, key, page_num, page_size):
     if page_size is not None:
         params["pagesize"] = page_size
 
-    print(params)
-
     resp = requests.get(url, headers={config.HEADER: key}, params=params, verify=False)
     return resp

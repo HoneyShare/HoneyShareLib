@@ -15,9 +15,23 @@ class APICommon:
             raise ExUnknownError
 
         try:
-            return req.json()
+            js = req.json()
         except:
             raise ExCannotParseJSON
+
+        return APIResponse(js)
+
+
+class APIResponse:
+    def __init__(self, js):
+        self.endpoint = js["Endpoint"]
+        self.result = js["Result"]
+
+        if "page_size" in js:
+            self.page_size = js["PageSize"]
+
+        if "page_num" in js:
+            self.page_num = js["PageNum"]
 
 
 class ExNotAuthenticated(Exception):

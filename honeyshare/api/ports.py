@@ -7,7 +7,7 @@ class Ports(APICommon):
             return self.get_request("/ports", page_num, page_size)
         return self.get_request(f"/ports/{port}")
 
-    def ipv4(self, port: str):
+    def ipv4(self, port: str, page_num: int = None, page_size: int = None):
         return self.get_request(f"/ports/{port}/ipv4", page_num, page_size)
 
     def bytes(self, port: str, ipv4: str, page_num: int = None, page_size: int = None):
