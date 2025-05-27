@@ -7,6 +7,11 @@ class IPv4(APICommon):
             return self.get_request("/ipv4", page_num, page_size)
         return self.get_request(f"/ipv4/{ipv4}")
 
+    def timeseries(self, ipv4: str, port: str = None):
+        if port is None:
+            return self.get_request(f"/ipv4/{ipv4}/timeseries")
+        return self.get_request(f"/ipv4/{ipv4}/ports/{port}/timeseries")
+
     def ports(self, ipv4: str):
         return self.get_request(f"/ipv4/{ipv4}/ports")
 

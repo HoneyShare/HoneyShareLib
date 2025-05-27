@@ -12,7 +12,7 @@ class APICommon:
         if req.status_code == 403:
             raise ExNotAuthenticated
         elif req.status_code != 200:
-            raise ExUnknownError
+            raise ExUnknownError(req.status_code)
 
         try:
             js = req.json()
@@ -40,8 +40,8 @@ class ExNotAuthenticated(Exception):
 
 
 class ExUnknownError(Exception):
-    def __init__(self):
-        super().__init__("Unknown Error")
+    def __init__(self, code):
+        super().__init__(f"Unknown Error. Code: {code}")
 
 
 class ExCannotParseJSON(Exception):
