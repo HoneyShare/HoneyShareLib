@@ -12,6 +12,9 @@ class IPv4(APICommon):
             return self.get_request(f"/ipv4/{ipv4}/timeseries")
         return self.get_request(f"/ipv4/{ipv4}/ports/{port}/timeseries")
 
+    def hostnames(self, ipv4: str):
+        return self.get_request(f"/ipv4/{ipv4}/hostnames")
+
     def ports(self, ipv4: str):
         return self.get_request(f"/ipv4/{ipv4}/ports")
 
