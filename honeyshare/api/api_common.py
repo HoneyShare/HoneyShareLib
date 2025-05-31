@@ -6,7 +6,7 @@ class APICommon:
     def __init__(self, key=None):
         self.key = key or config.KEY
 
-    def get_request(self, path, page_num=None, page_size=None):
+    def get_request(self, path, page_num=None, page_size=None, metadata=False):
         req = make_request(path, self.key, page_num, page_size)
 
         if req.status_code == 403:
@@ -19,19 +19,28 @@ class APICommon:
         except:
             raise ExCannotParseJSON
 
-        return APIResponse(js)
+        if metadata:
+            return APIResponse(js)
+
+        try:
+            return js["Result"]
+        except KeyError as e:
+            raise ExResponseMalformed(e)
 
 
 class APIResponse:
     def __init__(self, js):
-        self.endpoint = js["Endpoint"]
-        self.result = js["Result"]
+        try:
+            self.endpoint = js["Endpoint"]
+            self.result = js["Result"]
 
-        if "page_size" in js:
-            self.page_size = js["PageSize"]
+            if "page_size" in js:
+                self.page_size = js["PageSize"]
 
-        if "page_num" in js:
-            self.page_num = js["PageNum"]
+            if "page_num" in js:
+                self.page_num = js["PageNum"]
+        except KeyError as e:
+            raise ExResponseMalformed(e)
 
 
 class ExNotAuthenticated(Exception):
@@ -47,3 +56,9 @@ class ExUnknownError(Exception):
 class ExCannotParseJSON(Exception):
     def __init__(self):
         super().__init__("Cannot Parse JSON")
+
+
+class ExResponseMalformed(Exception):
+    def __init__(self, key_error):
+        missing = key_error.args[0]
+        super().__init__(f"Response is Malformed. Missing: {missing}")
