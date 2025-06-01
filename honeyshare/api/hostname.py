@@ -28,7 +28,6 @@ class Hostname(APICommon):
         page_size: int = None,
         metadata: bool = False,
     ):
-        print(self._hostname)
         return self.get_request(
             f"/hostnames/{self._hostname}/ipv4",
             page_num=page_num,
