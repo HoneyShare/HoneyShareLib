@@ -1,4 +1,4 @@
 from honeyshare.api.blacklist import Blacklist
 from honeyshare.api.ipv4 import IPv4
-from honeyshare.api.hostnames import Hostnames
-from honeyshare.api.ports import Ports
+from honeyshare.api.hostname import Hostname
+from honeyshare.api.port import Port

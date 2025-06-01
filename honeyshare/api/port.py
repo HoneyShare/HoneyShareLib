@@ -1,0 +1,55 @@
+from honeyshare.api.api_common import APICommon
+from honeyshare.api.util import ensureAttr
+
+
+class ExPortNeeded(Exception):
+    def __init__(self):
+        super().__init__("Port needed for operation")
+
+
+class Port(APICommon):
+    def __call__(
+        self,
+        port: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        metadata: bool = False,
+    ):
+        self._port = port
+        return self
+
+    def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
+        return self.get_request("/ports", page_num, page_size, metadata)
+
+    @ensureAttr("_port", ExPortNeeded)
+    def port(self, metadata: bool = False):
+        return self.get_request(f"/ports/{self._port}", metadata=metadata)
+
+    @ensureAttr("_port", ExPortNeeded)
+    def ipv4(
+        self,
+        ipv4: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        metadata: bool = False,
+    ):
+        if ipv4 is None:
+            return self.get_request(
+                f"/ports/{self._port}/ipv4", page_num, page_size, metadata=metadata
+            )
+        return self.get_request(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
+
+    @ensureAttr("_port", ExPortNeeded)
+    def bytes(
+        self,
+        ipv4: str,
+        page_num: int = None,
+        page_size: int = None,
+        metadata: bool = False,
+    ):
+        return self.get_request(
+            f"/ports/{self._port}/ipv4/{ipv4}/bytes",
+            page_num,
+            page_size,
+            metadata=metadata,
+        )

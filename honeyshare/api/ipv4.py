@@ -1,22 +1,85 @@
 from honeyshare.api.api_common import APICommon
+from honeyshare.api.util import ensureAttr
+
+
+class ExIPv4IPNeeded(Exception):
+    def __init__(self):
+        super().__init__("IPv4 needed for operation")
 
 
 class IPv4(APICommon):
-    def __call__(self, ipv4: str = None, page_num: int = None, page_size: int = None):
-        if ipv4 is None:
-            return self.get_request("/ipv4", page_num, page_size)
-        return self.get_request(f"/ipv4/{ipv4}")
+    def __call__(self, ipv4: str = None):
+        self._ipv4 = ipv4
+        return self
 
-    def timeseries(self, ipv4: str, port: str = None):
+    def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
+        return self.get_request("/ipv4", page_num, page_size, metadata)
+
+    @ensureAttr("_ipv4", ExIPv4IPNeeded)
+    def ipv4(self, metadata: bool = False):
+        return self.get_request(f"/ipv4/{self._ipv4}", metadata=metadata)
+
+    @ensureAttr("_ipv4", ExIPv4IPNeeded)
+    def ports(
+        self,
+        page_num: int = None,
+        page_size: int = None,
+        metadata: bool = False,
+    ):
+        return self.get_request(
+            f"/ipv4/{self._ipv4}/ports",
+            page_num=page_num,
+            page_size=page_size,
+            metadata=metadata,
+        )
+
+    @ensureAttr("_ipv4", ExIPv4IPNeeded)
+    def hostnames(
+        self,
+        page_num: int = None,
+        page_size: int = None,
+        metadata: bool = False,
+    ):
+        return self.get_request(
+            f"/ipv4/{self._ipv4}/hostnames",
+            page_num=page_num,
+            page_size=page_size,
+            metadata=metadata,
+        )
+
+    @ensureAttr("_ipv4", ExIPv4IPNeeded)
+    def timeseries(
+        self,
+        page_num: int = None,
+        page_size: int = None,
+        port: str = None,
+        metadata: bool = False,
+    ):
         if port is None:
-            return self.get_request(f"/ipv4/{ipv4}/timeseries")
-        return self.get_request(f"/ipv4/{ipv4}/ports/{port}/timeseries")
+            return self.get_request(
+                f"/ipv4/{self._ipv4}/timeseries",
+                page_num=page_num,
+                page_size=page_size,
+                metadata=metadata,
+            )
+        return self.get_request(
+            f"/ipv4/{self._ipv4}/ports/{port}/timeseries",
+            page_num=page_num,
+            page_size=page_size,
+            metadata=metadata,
+        )
 
-    def hostnames(self, ipv4: str):
-        return self.get_request(f"/ipv4/{ipv4}/hostnames")
-
-    def ports(self, ipv4: str):
-        return self.get_request(f"/ipv4/{ipv4}/ports")
-
-    def bytes(self, ipv4: str, port: str, page_num: int = None, page_size: int = None):
-        return self.get_request(f"/ipv4/{ipv4}/ports/{port}/bytes", page_num, page_size)
+    @ensureAttr("_ipv4", ExIPv4IPNeeded)
+    def bytes(
+        self,
+        port: str,
+        page_num: int = None,
+        page_size: int = None,
+        metadata: bool = False,
+    ):
+        return self.get_request(
+            f"/ipv4/{self._ipv4}/ports/{port}/bytes",
+            page_num=page_num,
+            page_size=page_size,
+            metadata=metadata,
+        )

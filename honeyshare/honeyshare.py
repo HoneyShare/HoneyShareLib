@@ -8,5 +8,5 @@ class HoneyShare:
         self.key = key or config.KEY
         self.Blacklist = api.Blacklist(self.key)
         self.IPv4 = api.IPv4(self.key)
-        self.Hostnames = api.Hostnames(self.key)
-        self.Ports = api.Ports(self.key)
+        self.Hostname = api.Hostname(self.key)
+        self.Port = api.Port(self.key)
