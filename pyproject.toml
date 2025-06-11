@@ -3,7 +3,6 @@ name = "honeyshare"
 version = "0.1.1"
 description = "Python API client for HoneyShare.live"
 license = "MIT"
-license-files = ["LICENSE"]
 readme = "README.md"
 authors = ["Pedro Melgueira <pedromelgueira@gmail.com>"]
 
