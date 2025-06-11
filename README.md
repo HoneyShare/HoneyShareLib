@@ -4,7 +4,7 @@ The [HoneyShare](https://honeyshare.live/) API Client.
 
 ## Installing
 
-    TODO
+    pip install honeyshare
 
 ## Usage
 
