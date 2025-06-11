@@ -4,6 +4,8 @@ The [HoneyShare](https://honeyshare.live/) API Client.
 
 ## Installing
 
+Available in [PYPI](https://pypi.org/project/honeyshare/).
+
     pip install honeyshare
 
 ## Usage
