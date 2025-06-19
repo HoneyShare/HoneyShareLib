@@ -11,6 +11,8 @@ class APICommon:
 
         if req.status_code == 403:
             raise ExNotAuthenticated
+        elif req.status_code == 404:
+            raise ExNotFound(path)
         elif req.status_code != 200:
             raise ExUnknownError(req.status_code)
 
@@ -44,8 +46,21 @@ class APIResponse:
 
 
 class ExNotAuthenticated(Exception):
+    """
+    HTTP: 403
+    """
+
     def __init__(self):
         super().__init__("Not authenticated")
+
+
+class ExNotFound(Exception):
+    """
+    HTTP: 404
+    """
+
+    def __init__(self, path):
+        super().__init__(f"Not Found: {path}")
 
 
 class ExUnknownError(Exception):
