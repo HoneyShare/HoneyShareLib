@@ -16,7 +16,7 @@ Initialize HoneyShare with a [Key](https://honeyshare.live/licenses):
 
     hs = HoneyShare(key="Your HoneyShare Key"")
 
-The library is organized around the four HoneyShare objects:
+The library is organized around the five HoneyShare objects:
 
     hs.Blacklist.ipv4s()     // Blacklists of IPs
     hs.Blacklist.hostnames() // Blacklists of Hostnames
@@ -38,6 +38,8 @@ The library is organized around the four HoneyShare objects:
     hs.Port(port).ipv4()    // IP's that acceed port
     hs.Port(port).ipv4(ip)  // IP's meta data on Port
     hs.Port(port).bytes(ip) // Bytes sent by IP on Port
+
+    hs.Timeseries.list() // List all connections
 
 ## Building and Installing Locally
 

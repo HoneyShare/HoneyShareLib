@@ -10,3 +10,4 @@ class HoneyShare:
         self.IPv4 = api.IPv4(self.key)
         self.Hostname = api.Hostname(self.key)
         self.Port = api.Port(self.key)
+        self.Timeseries = api.Timeseries(self.key)
