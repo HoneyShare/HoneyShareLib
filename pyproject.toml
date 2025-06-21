@@ -4,7 +4,7 @@ version = "1.0.1"
 description = "Python API client for HoneyShare.live"
 license = "MIT"
 readme = "README.md"
-authors = ["Pedro Melgueira <pedromelgueira@gmail.com>"]
+authors = ["Pedro Melgueira <pedro@honeyshare.live>"]
 
 packages = [
     { include = "honeyshare" },
