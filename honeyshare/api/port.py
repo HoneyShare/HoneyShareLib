@@ -1,5 +1,6 @@
 from honeyshare.api.api_common import APICommon
 from honeyshare.api.util import ensureAttr
+from honeyshare import bytes_functions
 
 
 class ExPortNeeded(Exception):
@@ -46,10 +47,17 @@ class Port(APICommon):
         page_num: int = None,
         page_size: int = None,
         metadata: bool = False,
+        base64_decode: bool = False,
     ):
-        return self.get_request(
+        res = self.get_request(
             f"/ports/{self._port}/ipv4/{ipv4}/bytes",
             page_num,
             page_size,
             metadata=metadata,
         )
+
+        if base64_decode:
+            for i in res["Connections"]:
+                i["Bytes"] = bytes_functions.base64_decode(i["Bytes"])
+
+        return res

@@ -76,10 +76,17 @@ class IPv4(APICommon):
         page_num: int = None,
         page_size: int = None,
         metadata: bool = False,
+        base64_decode: bool = False,
     ):
-        return self.get_request(
+        res = self.get_request(
             f"/ipv4/{self._ipv4}/ports/{port}/bytes",
             page_num=page_num,
             page_size=page_size,
             metadata=metadata,
         )
+
+        if base64_decode:
+            for i in res["Connections"]:
+                i["Bytes"] = bytes_functions.base64_decode(i["Bytes"])
+
+        return res
