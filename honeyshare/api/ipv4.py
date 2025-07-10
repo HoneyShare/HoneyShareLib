@@ -1,5 +1,6 @@
 from honeyshare.api.api_common import APICommon
 from honeyshare.api.util import ensureAttr
+from honeyshare import bytes_functions
 
 
 class ExIPv4IPNeeded(Exception):
