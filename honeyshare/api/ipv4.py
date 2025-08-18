@@ -14,11 +14,11 @@ class IPv4(APICommon):
         return self
 
     def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
-        return self.get_request("/ipv4", page_num, page_size, metadata)
+        return self.get("/ipv4", page_num, page_size, metadata)
 
     @ensureAttr("_ipv4", ExIPv4IPNeeded)
     def ipv4(self, metadata: bool = False):
-        return self.get_request(f"/ipv4/{self._ipv4}", metadata=metadata)
+        return self.get(f"/ipv4/{self._ipv4}", metadata=metadata)
 
     @ensureAttr("_ipv4", ExIPv4IPNeeded)
     def ports(
@@ -27,7 +27,7 @@ class IPv4(APICommon):
         page_size: int = None,
         metadata: bool = False,
     ):
-        return self.get_request(
+        return self.get(
             f"/ipv4/{self._ipv4}/ports",
             page_num=page_num,
             page_size=page_size,
@@ -41,7 +41,7 @@ class IPv4(APICommon):
         page_size: int = None,
         metadata: bool = False,
     ):
-        return self.get_request(
+        return self.get(
             f"/ipv4/{self._ipv4}/hostnames",
             page_num=page_num,
             page_size=page_size,
@@ -57,13 +57,13 @@ class IPv4(APICommon):
         metadata: bool = False,
     ):
         if port is None:
-            return self.get_request(
+            return self.get(
                 f"/ipv4/{self._ipv4}/timeseries",
                 page_num=page_num,
                 page_size=page_size,
                 metadata=metadata,
             )
-        return self.get_request(
+        return self.get(
             f"/ipv4/{self._ipv4}/ports/{port}/timeseries",
             page_num=page_num,
             page_size=page_size,
@@ -79,7 +79,7 @@ class IPv4(APICommon):
         metadata: bool = False,
         base64_decode: bool = False,
     ):
-        res = self.get_request(
+        res = self.get(
             f"/ipv4/{self._ipv4}/ports/{port}/bytes",
             page_num=page_num,
             page_size=page_size,

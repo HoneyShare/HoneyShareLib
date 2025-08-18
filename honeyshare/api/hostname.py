@@ -14,10 +14,10 @@ class Hostname(APICommon):
 
     @ensureAttr("_hostname", ExHostnameNeeded)
     def hostname(self, metadata: bool = False):
-        return self.get_request(f"/hostnames/{self._hostname}", metadata=metadata)
+        return self.get(f"/hostnames/{self._hostname}", metadata=metadata)
 
     def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
-        return self.get_request(
+        return self.get(
             "/hostnames", page_num=page_num, page_size=page_size, metadata=metadata
         )
 
@@ -28,7 +28,7 @@ class Hostname(APICommon):
         page_size: int = None,
         metadata: bool = False,
     ):
-        return self.get_request(
+        return self.get(
             f"/hostnames/{self._hostname}/ipv4",
             page_num=page_num,
             page_size=page_size,

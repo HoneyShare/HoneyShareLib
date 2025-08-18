@@ -20,11 +20,11 @@ class Port(APICommon):
         return self
 
     def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
-        return self.get_request("/ports", page_num, page_size, metadata)
+        return self.get("/ports", page_num, page_size, metadata)
 
     @ensureAttr("_port", ExPortNeeded)
     def port(self, metadata: bool = False):
-        return self.get_request(f"/ports/{self._port}", metadata=metadata)
+        return self.get(f"/ports/{self._port}", metadata=metadata)
 
     @ensureAttr("_port", ExPortNeeded)
     def ipv4(
@@ -35,10 +35,10 @@ class Port(APICommon):
         metadata: bool = False,
     ):
         if ipv4 is None:
-            return self.get_request(
+            return self.get(
                 f"/ports/{self._port}/ipv4", page_num, page_size, metadata=metadata
             )
-        return self.get_request(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
+        return self.get(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
 
     @ensureAttr("_port", ExPortNeeded)
     def bytes(
@@ -49,7 +49,7 @@ class Port(APICommon):
         metadata: bool = False,
         base64_decode: bool = False,
     ):
-        res = self.get_request(
+        res = self.get(
             f"/ports/{self._port}/ipv4/{ipv4}/bytes",
             page_num,
             page_size,

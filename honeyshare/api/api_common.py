@@ -6,18 +6,25 @@ class APICommon:
     def __init__(self, key=None):
         self.key = key or config.KEY
 
-    def get_request(self, path, page_num=None, page_size=None, metadata=False):
-        req = make_request(path, self.key, page_num, page_size)
+    def _get(self, path, page_num=None, page_size=None, metadata=False):
+        resp = make_request(path, self.key, page_num, page_size)
 
-        if req.status_code == 403:
+        if resp.status_code == 403:
             raise ExNotAuthenticated
-        elif req.status_code == 404:
+        elif resp.status_code == 404:
             raise ExNotFound(path)
-        elif req.status_code != 200:
-            raise ExUnknownError(req.status_code)
+        elif resp.status_code != 200:
+            raise ExUnknownError(resp.status_code)
+
+        return resp
+
+    def get(self, path, page_num=None, page_size=None, metadata=False):
+        resp = self._get(
+            path, page_num=page_num, page_size=page_size, metadata=metadata
+        )
 
         try:
-            js = req.json()
+            js = resp.json()
         except:
             raise ExCannotParseJSON
 
@@ -28,6 +35,13 @@ class APICommon:
             return js["Result"]
         except KeyError as e:
             raise ExResponseMalformed(e)
+
+    def get_file(self, path, filename, metadata=False):
+        resp = self._get(path, metadata=metadata)
+
+        with open(filename, "wb") as file:
+            for chunk in resp.iter_content(chunk_size=8192):
+                file.write(chunk)
 
 
 class APIResponse:
