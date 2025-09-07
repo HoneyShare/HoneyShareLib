@@ -41,7 +41,7 @@ class Port(APICommon):
         return self.get(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
 
     @ensureAttr("_port", ExPortNeeded)
-    def bytes(
+    def payload(
         self,
         ipv4: str,
         page_num: int = None,
@@ -50,7 +50,7 @@ class Port(APICommon):
         base64_decode: bool = False,
     ):
         res = self.get(
-            f"/ports/{self._port}/ipv4/{ipv4}/bytes",
+            f"/ports/{self._port}/ipv4/{ipv4}/payload",
             page_num,
             page_size,
             metadata=metadata,
@@ -58,6 +58,6 @@ class Port(APICommon):
 
         if base64_decode:
             for i in res["Connections"]:
-                i["Bytes"] = bytes_functions.base64_decode(i["Bytes"])
+                i["Payload"] = bytes_functions.base64_decode(i["Payload"])
 
         return res

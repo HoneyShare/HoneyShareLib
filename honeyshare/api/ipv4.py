@@ -71,7 +71,7 @@ class IPv4(APICommon):
         )
 
     @ensureAttr("_ipv4", ExIPv4IPNeeded)
-    def bytes(
+    def payload(
         self,
         port: str,
         page_num: int = None,
@@ -80,7 +80,7 @@ class IPv4(APICommon):
         base64_decode: bool = False,
     ):
         res = self.get(
-            f"/ipv4/{self._ipv4}/ports/{port}/bytes",
+            f"/ipv4/{self._ipv4}/ports/{port}/payload",
             page_num=page_num,
             page_size=page_size,
             metadata=metadata,
@@ -88,6 +88,6 @@ class IPv4(APICommon):
 
         if base64_decode:
             for i in res["Connections"]:
-                i["Bytes"] = bytes_functions.base64_decode(i["Bytes"])
+                i["Payload"] = bytes_functions.base64_decode(i["Payload"])
 
         return res
