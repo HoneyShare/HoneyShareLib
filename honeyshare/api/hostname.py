@@ -16,21 +16,33 @@ class Hostname(APICommon):
     def hostname(self, metadata: bool = False):
         return self.get(f"/hostnames/{self._hostname}", metadata=metadata)
 
-    def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
+    def list(
+        self,
+        pagenum: int = None,
+        pagesize: int = None,
+        search: str = None,
+        glob: str = None,
+        metadata: bool = False,
+    ):
         return self.get(
-            "/hostnames", page_num=page_num, page_size=page_size, metadata=metadata
+            "/hostnames",
+            pagenum=pagenum,
+            pagesize=pagesize,
+            search=search,
+            glob=glob,
+            metadata=metadata,
         )
 
     @ensureAttr("_hostname", ExHostnameNeeded)
     def ipv4(
         self,
-        page_num: int = None,
-        page_size: int = None,
+        pagenum: int = None,
+        pagesize: int = None,
         metadata: bool = False,
     ):
         return self.get(
             f"/hostnames/{self._hostname}/ipv4",
-            page_num=page_num,
-            page_size=page_size,
+            pagenum=pagenum,
+            pagesize=pagesize,
             metadata=metadata,
         )

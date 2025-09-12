@@ -12,15 +12,15 @@ class Port(APICommon):
     def __call__(
         self,
         port: str = None,
-        page_num: int = None,
-        page_size: int = None,
+        pagenum: int = None,
+        pagesize: int = None,
         metadata: bool = False,
     ):
         self._port = port
         return self
 
-    def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
-        return self.get("/ports", page_num, page_size, metadata)
+    def list(self, pagenum: int = None, pagesize: int = None, metadata: bool = False):
+        return self.get("/ports", pagenum, pagesize, metadata)
 
     @ensureAttr("_port", ExPortNeeded)
     def port(self, metadata: bool = False):
@@ -30,13 +30,13 @@ class Port(APICommon):
     def ipv4(
         self,
         ipv4: str = None,
-        page_num: int = None,
-        page_size: int = None,
+        pagenum: int = None,
+        pagesize: int = None,
         metadata: bool = False,
     ):
         if ipv4 is None:
             return self.get(
-                f"/ports/{self._port}/ipv4", page_num, page_size, metadata=metadata
+                f"/ports/{self._port}/ipv4", pagenum, pagesize, metadata=metadata
             )
         return self.get(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
 
@@ -44,15 +44,15 @@ class Port(APICommon):
     def payload(
         self,
         ipv4: str,
-        page_num: int = None,
-        page_size: int = None,
+        pagenum: int = None,
+        pagesize: int = None,
         metadata: bool = False,
         base64_decode: bool = False,
     ):
         res = self.get(
             f"/ports/{self._port}/ipv4/{ipv4}/payload",
-            page_num,
-            page_size,
+            pagenum,
+            pagesize,
             metadata=metadata,
         )
 

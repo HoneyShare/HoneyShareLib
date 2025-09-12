@@ -6,8 +6,8 @@ class APICommon:
     def __init__(self, key=None):
         self.key = key or config.KEY
 
-    def _get(self, path, page_num=None, page_size=None, metadata=False):
-        resp = make_request(path, self.key, page_num, page_size)
+    def _get(self, path, metadata=False, **params):
+        resp = make_request(path, self.key, **params)
 
         if resp.status_code == 403:
             raise ExNotAuthenticated
@@ -18,10 +18,8 @@ class APICommon:
 
         return resp
 
-    def get(self, path, page_num=None, page_size=None, metadata=False):
-        resp = self._get(
-            path, page_num=page_num, page_size=page_size, metadata=metadata
-        )
+    def get(self, path, metadata=False, **params):
+        resp = self._get(path, metadata=metadata, **params)
 
         try:
             js = resp.json()
@@ -50,11 +48,11 @@ class APIResponse:
             self.endpoint = js["Endpoint"]
             self.result = js["Result"]
 
-            if "page_size" in js:
-                self.page_size = js["PageSize"]
+            if "pagesize" in js:
+                self.pagesize = js["PageSize"]
 
-            if "page_num" in js:
-                self.page_num = js["PageNum"]
+            if "pagenum" in js:
+                self.pagenum = js["PageNum"]
         except KeyError as e:
             raise ExResponseMalformed(e)
 

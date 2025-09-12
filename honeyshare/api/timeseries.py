@@ -12,9 +12,21 @@ class Timeseries(APICommon):
         self._id = id
         return self
 
-    def list(self, page_num: int = None, page_size: int = None, metadata: bool = False):
+    def list(
+        self,
+        pagenum: int = None,
+        pagesize: int = None,
+        has_volume: bool = None,
+        has_pcap: bool = None,
+        metadata: bool = False,
+    ):
         return self.get(
-            "/timeseries", page_num=page_num, page_size=page_size, metadata=metadata
+            "/timeseries",
+            pagenum=pagenum,
+            pagesize=pagesize,
+            has_volume=has_volume,
+            has_pcap=has_pcap,
+            metadata=metadata,
         )
 
     @ensureAttr("_id", ExTimeseriesIDNeeded)
