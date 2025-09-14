@@ -30,6 +30,10 @@ class Timeseries(APICommon):
         )
 
     @ensureAttr("_id", ExTimeseriesIDNeeded)
+    def conn(self, metadata: bool = False):
+        return self.get(f"/timeseries/{self._id}", metadata=metadata)
+
+    @ensureAttr("_id", ExTimeseriesIDNeeded)
     def volume(self, filename: str, metadata: bool = False):
         return self.get_file(
             f"/timeseries/{self._id}/volume", filename, metadata=metadata
