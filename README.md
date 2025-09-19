@@ -1,6 +1,9 @@
 # HoneyShareLib
 
 [![CICD](https://github.com/HoneyShare/HoneyShareLib/actions/workflows/cicd.yml/badge.svg)](https://github.com/HoneyShare/HoneyShareLib/actions/workflows/cicd.yml)
+[![python](https://img.shields.io/badge/Python-3.9-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![Packaged with Poetry][poetry-badge]](https://python-poetry.org/)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/honeyshare)
 
 The [HoneyShare](https://honeyshare.live/) API Client.
 
