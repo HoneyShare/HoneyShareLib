@@ -1,5 +1,7 @@
 # HoneyShareLib
 
+[![CICD](https://github.com/HoneyShare/HoneyShareLib/actions/workflows/cicd.yml/badge.svg)](https://github.com/HoneyShare/HoneyShareLib/actions/workflows/cicd.yml)
+
 The [HoneyShare](https://honeyshare.live/) API Client.
 
 ## Installing
