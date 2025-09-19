@@ -91,18 +91,26 @@ class IPv4(APICommon):
     @ensureAttr("_ipv4", ExIPv4IPNeeded)
     def payload(
         self,
-        port: str,
+        port: str = None,
         pagenum: int = None,
         pagesize: int = None,
         metadata: bool = False,
         base64_decode: bool = False,
     ):
-        res = self.get(
-            f"/ipv4/{self._ipv4}/ports/{port}/payload",
-            pagenum=pagenum,
-            pagesize=pagesize,
-            metadata=metadata,
-        )
+        if port is None:
+            res = self.get(
+                f"/ipv4/{self._ipv4}/payload",
+                pagenum=pagenum,
+                pagesize=pagesize,
+                metadata=metadata,
+            )
+        else:
+            res = self.get(
+                f"/ipv4/{self._ipv4}/ports/{port}/payload",
+                pagenum=pagenum,
+                pagesize=pagesize,
+                metadata=metadata,
+            )
 
         if base64_decode:
             for i in res["Connections"]:

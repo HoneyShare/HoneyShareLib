@@ -20,7 +20,12 @@ class Port(APICommon):
         return self
 
     def list(self, pagenum: int = None, pagesize: int = None, metadata: bool = False):
-        return self.get("/ports", pagenum, pagesize, metadata)
+        return self.get(
+            "/ports",
+            pagenum=pagenum,
+            pagesize=pagesize,
+            metadata=metadata,
+        )
 
     @ensureAttr("_port", ExPortNeeded)
     def port(self, metadata: bool = False):
@@ -36,25 +41,36 @@ class Port(APICommon):
     ):
         if ipv4 is None:
             return self.get(
-                f"/ports/{self._port}/ipv4", pagenum, pagesize, metadata=metadata
+                f"/ports/{self._port}/ipv4",
+                pagenum=pagenum,
+                pagesize=pagesize,
+                metadata=metadata,
             )
         return self.get(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
 
     @ensureAttr("_port", ExPortNeeded)
     def payload(
         self,
-        ipv4: str,
+        ipv4: str = None,
         pagenum: int = None,
         pagesize: int = None,
         metadata: bool = False,
         base64_decode: bool = False,
     ):
-        res = self.get(
-            f"/ports/{self._port}/ipv4/{ipv4}/payload",
-            pagenum,
-            pagesize,
-            metadata=metadata,
-        )
+        if ipv4 is None:
+            res = self.get(
+                f"/ports/{self._port}/payload",
+                pagenum=pagenum,
+                pagesize=pagesize,
+                metadata=metadata,
+            )
+        else:
+            res = self.get(
+                f"/ports/{self._port}/ipv4/{ipv4}/payload",
+                pagenum=pagenum,
+                pagesize=pagesize,
+                metadata=metadata,
+            )
 
         if base64_decode:
             for i in res["Connections"]:
