@@ -3,6 +3,7 @@
 [![python](https://img.shields.io/badge/Python-3.9-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/honeyshare)
 [![CICD](https://github.com/HoneyShare/HoneyShareLib/actions/workflows/cicd.yml/badge.svg)](https://github.com/HoneyShare/HoneyShareLib/actions/workflows/cicd.yml)
+![PyPI - License](https://img.shields.io/pypi/l/honeyshare)
 
 The [HoneyShare](https://honeyshare.live/) API Client.
 
