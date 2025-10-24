@@ -33,6 +33,10 @@ class IPv4(APICommon):
         return self.get(f"/ipv4/{self._ipv4}", metadata=metadata)
 
     @ensureAttr("_ipv4", ExIPv4IPNeeded)
+    def rdap(self, metadata: bool = False):
+        return self.get(f"/ipv4/{self._ipv4}/rdap", metadata=metadata)
+
+    @ensureAttr("_ipv4", ExIPv4IPNeeded)
     def ports(
         self,
         pagenum: int = None,

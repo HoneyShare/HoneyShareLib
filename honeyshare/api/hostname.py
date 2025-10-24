@@ -34,6 +34,10 @@ class Hostname(APICommon):
         )
 
     @ensureAttr("_hostname", ExHostnameNeeded)
+    def rdap(self, metadata: bool = False):
+        return self.get(f"/hostnames/{self._hostname}/rdap", metadata=metadata)
+
+    @ensureAttr("_hostname", ExHostnameNeeded)
     def ipv4(
         self,
         pagenum: int = None,

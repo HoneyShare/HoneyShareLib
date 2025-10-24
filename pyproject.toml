@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "honeyshare"
-version = "1.5"
+version = "1.5.1"
 description = "Python API client for HoneyShare.live"
 license = "MIT"
 readme = "README.md"

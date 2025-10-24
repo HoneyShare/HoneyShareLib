@@ -49,6 +49,34 @@ class Port(APICommon):
         return self.get(f"/ports/{self._port}/ipv4/{ipv4}", metadata=metadata)
 
     @ensureAttr("_port", ExPortNeeded)
+    def timeseries(
+        self,
+        pagenum: int = None,
+        pagesize: int = None,
+        has_volume: bool = None,
+        has_pcap: bool = None,
+        ipv4: str = None,
+        metadata: bool = False,
+    ):
+        if ipv4 is None:
+            return self.get(
+                f"/ports/{self._port}/timeseries",
+                pagenum=pagenum,
+                pagesize=pagesize,
+                has_volume=has_volume,
+                has_pcap=has_pcap,
+                metadata=metadata,
+            )
+        return self.get(
+            f"/ports/{self._port}/ipv4/{ipv4}/timeseries",
+            pagenum=pagenum,
+            pagesize=pagesize,
+            has_volume=has_volume,
+            has_pcap=has_pcap,
+            metadata=metadata,
+        )
+
+    @ensureAttr("_port", ExPortNeeded)
     def payload(
         self,
         ipv4: str = None,
